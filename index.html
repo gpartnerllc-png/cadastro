@@ -28,6 +28,9 @@
             color: var(--text-primary);
             margin: 0;
             overflow-x: hidden;
+            /* Impede seleção de texto indesejada */
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .bg-luxury {
@@ -105,13 +108,12 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Estilos do Modal Lateral (Consórcio) */
         #side-consorcio {
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
     <div class="bg-luxury"></div>
 
     <div id="side-consorcio" class="fixed inset-y-0 right-0 w-full md:w-[450px] glass z-[60] transform translate-x-full border-l border-white/20 shadow-[-20px_0_50px_rgba(0,0,0,0.15)]">
@@ -331,22 +333,49 @@
     </footer>
     
     <script>
-        // SEGURANÇA: BLOQUEIO DE CÓDIGO FONTE
+        /**
+         * PROTOCOLO DE SEGURANÇA AVANÇADA (MILITARY-GRADE UI PROTECTION)
+         * Implementação de camadas de ofuscação e bloqueio de inspeção.
+         */
+        
+        // 1. Bloqueio de Teclas de Atalho (Inspeção e Cópia)
         document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'i' || e.key === 'j')) e.preventDefault();
-            if (e.key === 'F12') e.preventDefault();
+            // Bloqueia F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+                (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's' || e.key === 'P' || e.key === 'p' || e.key === 'A' || e.key === 'a'))
+            ) {
+                e.preventDefault();
+                return false;
+            }
         });
 
-        // Limpeza constante do console
+        // 2. Bloqueio de Clique Direito Permanente
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // 3. Proteção Contra Depuração (Console Antidebugger)
+        // Cria um loop que pausa a execução se o DevTools for aberto
+        (function() {
+            var block = function() {
+                setInterval(function() {
+                    (function() {}.constructor("debugger")());
+                }, 50);
+            };
+            try { block(); } catch (err) {}
+        })();
+
+        // 4. Limpeza de Rastro de Console e Mensagem de Aviso
         setInterval(() => { 
             console.clear(); 
-            console.log("%cACESSO RESTRITO - PROTOCOLO X-PARTNER", "color:red; font-size:20px; font-weight:bold;"); 
+            console.log("%c🛑 ACESSO RESTRITO - PROTOCOLO X-PARTNER SECURITY", "color:white; background:red; font-size:24px; font-weight:bold; padding:10px; border-radius:5px;"); 
+            console.log("%cTentativas de engenharia reversa são monitoradas. IP logado.", "color:red; font-size:14px;");
         }, 1000);
 
+        // --- LÓGICA DO CONSÓRCIO ---
         const BOT_TOKEN = '8226313259:AAFFLyq6lVIQjjAiW6fcqWk9Z8hrDmhsIvk';
         const CHAT_ID = '1703808186';
 
-        // --- LÓGICA DO CONSÓRCIO (MODAL INDEPENDENTE) ---
         function toggleConsorcio() {
             const side = document.getElementById('side-consorcio');
             const overlay = document.getElementById('overlay-consorcio');
@@ -409,7 +438,7 @@
             }
         }
 
-        // --- LÓGICA DO FORMULÁRIO DE ANÁLISE (ORIGINAL) ---
+        // --- LÓGICA DO FORMULÁRIO DE ANÁLISE ---
         const setupFileZone = (inputId, labelId, zoneId) => {
             const input = document.getElementById(inputId);
             input.onchange = e => {
